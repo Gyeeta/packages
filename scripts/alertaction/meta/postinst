@@ -1,0 +1,27 @@
+#!/bin/bash
+
+export PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin
+
+set -e
+
+if [ "$1" = "configure" ]; then
+	if ! getent group gyeeta > /dev/null; then
+		addgroup --quiet --system gyeeta
+	fi
+
+	if ! getent passwd gyeeta > /dev/null; then
+		adduser --quiet --system --ingroup gyeeta --home /opt/gyeeta --no-create-home gyeeta
+	fi
+
+	if [ ! -f /opt/gyeeta/alertaction/.env ]; then
+		touch /opt/gyeeta/alertaction/.env
+	fi
+
+	chown -h gyeeta:gyeeta /opt/gyeeta
+
+	chown -hR gyeeta:gyeeta /opt/gyeeta/alertaction
+	
+fi
+
+exit 0
+

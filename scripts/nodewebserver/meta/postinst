@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin
+
+set -e
+
+if [ "$1" = "configure" ]; then
+	if ! getent group gyeeta > /dev/null; then
+		addgroup --quiet --system gyeeta
+	fi
+
+	if ! getent passwd gyeeta > /dev/null; then
+		adduser --quiet --system --ingroup gyeeta --home /opt/gyeeta --no-create-home gyeeta
+	fi
+
+	if [ ! -f /opt/gyeeta/nodewebserver/.env ]; then
+		touch /opt/gyeeta/nodewebserver/.env 
+	fi
+
+	chown -h gyeeta:gyeeta /opt/gyeeta
+
+	chown -hR gyeeta:gyeeta /opt/gyeeta/nodewebserver
+	
+	setcap cap_net_bind_service+ep /opt/gyeeta/nodewebserver/node
+fi
+
+exit 0
+

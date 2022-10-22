@@ -1,0 +1,11 @@
+Package: gyeeta-partha
+Version: 0.1.0
+Architecture: amd64
+Maintainer: Gyeeta (https://github.com/gyeeta/gyeeta)
+Depends: dkms (>= 2.3), adduser, sudo, libcap2-bin (>= 1:2.0), libc6 (>= 2.27), zlib1g (>= 1:1.2.11), liblzma5 (>= 5.2.2)
+Section: utils
+Priority: optional
+Homepage: https://gyeeta.io
+Description: Partha - Gyeeta's Host Monitor Agent
+  Gyeeta is an Observability product monitoring Services, Processes and Hosts. partha is the Host Monitor Agent of Gyeeta. 
+

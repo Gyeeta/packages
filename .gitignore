@@ -1,0 +1,10 @@
+
+# Logs
+logs
+*.log
+
+cache
+
+*.deb
+*.rpm
+

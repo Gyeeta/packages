@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Gyeeta
+Upstream-Contact: https://github.com/gyeeta/gyeeta
+Source: https://github.com/gyeeta/gyeeta
+
+Files: *
+Copyright: 2022 Exact Solutions Inc.
+License: GPL-3+
+ On Debian systems, the complete text of the GNU General Public
+ License version 3 can be found in /usr/share/common-licenses/GPL-3.
+
+

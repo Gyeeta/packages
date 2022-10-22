@@ -1,0 +1,26 @@
+
+[Unit]
+Description=nodewebserver - Webserver for Gyeeta
+Documentation=https://gyeeta.io/docs/
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=gyeeta
+Group=gyeeta
+WorkingDirectory=/opt/gyeeta/nodewebserver
+Environment="GY_FOREGROUND=1"
+ExecStart=/opt/gyeeta/nodewebserver/runwebserver.sh start
+RestartSec=10s
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=yes
+ProtectHome=read-only
+ProtectSystem=full
+RestrictRealtime=true
+LimitNOFILE=65535
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+

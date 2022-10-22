@@ -1,0 +1,11 @@
+Package: gyeeta-shyama
+Version: 0.1.0
+Architecture: amd64
+Maintainer: Gyeeta (https://github.com/gyeeta/gyeeta)
+Depends: adduser, libc6 (>= 2.27), zlib1g (>= 1:1.2.11), liblzma5 (>= 5.2.2)
+Section: utils
+Priority: optional
+Homepage: https://gyeeta.io
+Description: Shyama - Gyeeta's Central Server
+  Gyeeta is an Observability product monitoring Services, Processes and Hosts. Shyama is the Central Server Component of Gyeeta. 
+

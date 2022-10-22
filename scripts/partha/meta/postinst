@@ -1,0 +1,29 @@
+#!/bin/bash
+
+export PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin
+
+set -e
+
+if [ "$1" = "configure" ]; then
+	if ! getent group gyeeta > /dev/null; then
+		addgroup --quiet --system gyeeta
+	fi
+
+	if ! getent passwd gyeeta > /dev/null; then
+		adduser --quiet --system --ingroup gyeeta --home /opt/gyeeta --no-create-home gyeeta
+	fi
+
+	if [ ! -f /opt/gyeeta/partha/cfg/partha_main.json ]; then
+		touch /opt/gyeeta/partha/cfg/partha_main.json
+	fi
+
+	chown -h gyeeta:gyeeta /opt/gyeeta
+
+	chown -hR gyeeta:gyeeta /opt/gyeeta/partha
+
+	setcap cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_ipc_lock,cap_kill,cap_mac_admin,cap_mknod,cap_sys_chroot,cap_sys_resource,cap_setpcap,cap_sys_ptrace,cap_sys_admin,cap_net_admin,cap_net_raw,cap_sys_module+ep /opt/gyeeta/partha/partha
+	
+fi
+
+exit 0
+
