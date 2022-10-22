@@ -47,6 +47,8 @@ fi
 
 set -e
 
+sed -i "s/Version:.*$/Version: $VERSION/g" ./${APPNAME}/meta/control
+
 cp -a ./${APPNAME}/meta/* ${CACHEDIR}/DEBIAN/
 
 echo "9" > ${CACHEDIR}/DEBIAN/compat
