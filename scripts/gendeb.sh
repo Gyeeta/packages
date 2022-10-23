@@ -97,6 +97,8 @@ fi
 
 cd $INITDIR
 
+rm -Rf $CACHEDIR
+
 mv ./cache/${PKGNAME}_${VERSION}_amd64.deb $DESTDIR/
 
 if [ $? -ne 0 ]; then

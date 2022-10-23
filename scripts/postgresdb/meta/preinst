@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin
+
+set -e
+
+if [ "$1" = "install" ]; then
+	PROCINFO=$( cat /proc/cpuinfo )
+
+	if [ $( echo "$PROCINFO" | grep -w flags | grep -ic avx ) -eq 0 ]; then
+		echo -e "\nThis package can run only on hosts with processors having avx instruction support (Intel Sandybridge (2012) or above).\nProcessor seems to be a very old one. Please install on a machine with a newer processor.\n"
+		exit 1
+	fi
+fi
+
+exit 0
+
