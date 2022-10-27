@@ -14,13 +14,11 @@ Group=gyeeta
 WorkingDirectory=/opt/gyeeta/partha
 ExecStart=/opt/gyeeta/partha/partha
 AmbientCapabilities=CAP_CHOWN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_FOWNER CAP_FSETID CAP_IPC_LOCK CAP_KILL CAP_MAC_ADMIN CAP_MKNOD CAP_SYS_CHROOT CAP_SYS_RESOURCE CAP_SETPCAP CAP_SYS_PTRACE CAP_SYS_ADMIN CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_MODULE
-ExitType=cgroup
 RestartSec=20s
 Restart=always
 PrivateTmp=true
 NoNewPrivileges=yes
 ProtectHome=read-only
 ProtectSystem=full
-RestrictRealtime=true
 LimitNOFILE=65535
 

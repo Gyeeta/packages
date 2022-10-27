@@ -21,6 +21,5 @@ PrivateTmp=true
 NoNewPrivileges=yes
 ProtectHome=read-only
 ProtectSystem=full
-RestrictRealtime=true
 LimitNOFILE=65535
 

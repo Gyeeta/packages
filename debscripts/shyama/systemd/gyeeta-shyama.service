@@ -13,13 +13,11 @@ User=gyeeta
 Group=gyeeta
 WorkingDirectory=/opt/gyeeta/shyama
 ExecStart=/opt/gyeeta/shyama/shyama
-ExitType=cgroup
 RestartSec=20s
 Restart=always
 PrivateTmp=true
 NoNewPrivileges=yes
 ProtectHome=read-only
 ProtectSystem=full
-RestrictRealtime=true
 LimitNOFILE=65535
 
