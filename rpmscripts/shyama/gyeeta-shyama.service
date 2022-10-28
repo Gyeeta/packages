@@ -1,0 +1,23 @@
+
+[Unit]
+Description=Shyama - Central Server for Gyeeta
+Documentation=https://gyeeta.io/docs/
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=gyeeta
+Group=gyeeta
+WorkingDirectory=/opt/gyeeta/shyama
+ExecStart=/opt/gyeeta/shyama/shyama
+RestartSec=20s
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=yes
+ProtectHome=read-only
+ProtectSystem=full
+LimitNOFILE=65535
+
