@@ -1,20 +1,18 @@
 
-%define _name gyeeta-shyama
+%define _name gyeeta-alertaction
 
 %undefine __brp_mangle_shebangs
-
-%{?rhel:%global centos_ver %rhel}
 
 Name: %{_name}
 Version: 0.1.0
 Release: 1
-Summary: Shyama - Gyeeta's Central Server
+Summary: Alertaction - Gyeeta's Alert Action Agent
 License: GPLv3+
-URL: https://github.com/gyeeta/gyeeta
+URL: https://github.com/gyeeta/alertaction
 Packager: Gyeeta (https://github.com/gyeeta)
-Requires: /usr/sbin/useradd, sudo, /lib64/libnsl.so.1
-Source0: shyama.tar.gz
-Source1: gyeeta-shyama.service
+Requires: /usr/sbin/useradd, sudo
+Source0: alertaction.tar.gz
+Source1: gyeeta-alertaction.service
 Source2: LICENSE
 BuildArch: x86_64
 
@@ -29,7 +27,7 @@ AutoReqProv: no
 %global debug_package %{nil}
 
 %description
-Gyeeta is an Observability product monitoring Services, Processes and Hosts. Shyama is the Central Server Component of Gyeeta.
+Gyeeta is an Observability product monitoring Services, Processes and Hosts. Alertaction is the Alert Action Agent of Gyeeta. 
 
 %prep
 
@@ -61,22 +59,22 @@ if ! getent passwd gyeeta > /dev/null; then
 fi
 
 %post
-if [ ! -f /opt/gyeeta/shyama/cfg/shyama_main.json ]; then
-	touch /opt/gyeeta/shyama/cfg/shyama_main.json
+if [ ! -f /opt/gyeeta/alertaction/.env ]; then
+	touch /opt/gyeeta/alertaction/.env
 fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :
 
-chown -hR gyeeta:gyeeta /opt/gyeeta/shyama
+chown -hR gyeeta:gyeeta /opt/gyeeta/alertaction
 
 %preun
 if [ $1 = 0 ]; then
-	/usr/bin/systemctl disable gyeeta-shyama
+	/usr/bin/systemctl disable gyeeta-alertaction
 fi
 
 %postun
 if [ $1 -ge 1 ]; then
-	/usr/bin/systemctl restart gyeeta-shyama >/dev/null 2>&1 || :
+	/usr/bin/systemctl restart gyeeta-alertaction >/dev/null 2>&1 || :
 fi
 
 
@@ -86,8 +84,8 @@ fi
 %{_unitdir}/%{_name}.service
 
 %defattr(-,gyeeta,gyeeta,-)
-%dir /opt/gyeeta/shyama
-/opt/gyeeta/shyama/
+%dir /opt/gyeeta/alertaction
+/opt/gyeeta/alertaction/
 
 %changelog
 * Wed Oct 26 2022 Gyeeta <gyeetainc@gmail.com>

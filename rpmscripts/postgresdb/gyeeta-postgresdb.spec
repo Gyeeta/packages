@@ -1,6 +1,8 @@
 
 %define _name gyeeta-postgresdb
 
+%undefine __brp_mangle_shebangs
+
 Name: %{_name}
 Version: 12.2.0
 Release: 1
@@ -18,6 +20,9 @@ BuildRequires: systemd-rpm-macros
 
 # Skip Library Dependency detection
 AutoReqProv: no
+
+# Skip /usr/lib/.build-id/
+%define _build_id_links none
 
 %global debug_package %{nil}
 
@@ -54,6 +59,9 @@ if ! getent passwd gyeeta > /dev/null; then
 fi
 
 %post
+if [ ! -f /opt/gyeeta/postgresdb/cfg/dbdir.cfg ]; then
+	touch /opt/gyeeta/postgresdb/cfg/dbdir.cfg
+fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :
 

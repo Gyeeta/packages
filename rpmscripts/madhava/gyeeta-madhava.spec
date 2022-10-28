@@ -1,6 +1,8 @@
 
 %define _name gyeeta-madhava
 
+%undefine __brp_mangle_shebangs
+
 %{?rhel:%global centos_ver %rhel}
 
 Name: %{_name}
@@ -10,20 +12,19 @@ Summary: Madhava - Gyeeta's Intermediate Server
 License: GPLv3+
 URL: https://github.com/gyeeta/gyeeta
 Packager: Gyeeta (https://github.com/gyeeta)
-Requires: /usr/sbin/useradd, sudo
+Requires: /usr/sbin/useradd, sudo, /lib64/libnsl.so.1
 Source0: madhava.tar.gz
 Source1: gyeeta-madhava.service
 Source2: LICENSE
 BuildArch: x86_64
 
-%if 0%{?centos_ver} && 0%{?centos_ver} < 9
-Requires: libnsl
-%endif
-
 BuildRequires: systemd-rpm-macros
 
 # Skip Library Dependency detection
 AutoReqProv: no
+
+# Skip /usr/lib/.build-id/
+%define _build_id_links none
 
 %global debug_package %{nil}
 
@@ -60,6 +61,9 @@ if ! getent passwd gyeeta > /dev/null; then
 fi
 
 %post
+if [ ! -f /opt/gyeeta/madhava/cfg/madhava_main.json ]; then
+	touch /opt/gyeeta/madhava/cfg/madhava_main.json
+fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :
 

@@ -1,7 +1,7 @@
 Package: gyeeta-postgresdb
 Version: 12.2.0
 Architecture: amd64
-Maintainer: Gyeeta (https://github.com/gyeeta/gyeeta)
+Maintainer: Gyeeta (https://github.com/gyeeta/postgresdb)
 Depends: adduser, libc6 (>= 2.27), zlib1g (>= 1:1.2.11), liblzma5 (>= 5.2.2)
 Section: utils
 Priority: optional

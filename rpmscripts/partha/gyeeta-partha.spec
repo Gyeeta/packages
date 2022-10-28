@@ -1,6 +1,8 @@
 
 %define _name gyeeta-partha
 
+%undefine __brp_mangle_shebangs
+
 %{?rhel:%global centos_ver %rhel}
 
 Name: %{_name}
@@ -10,20 +12,19 @@ Summary: Partha - Gyeeta's Host Monitor Agent
 License: GPLv3+
 URL: https://github.com/gyeeta/gyeeta
 Packager: Gyeeta (https://github.com/gyeeta)
-Requires: kernel >= 4.4, kernel-devel, /usr/sbin/useradd, sudo, /usr/sbin/setcap
+Requires: kernel >= 4.4, kernel-devel, /usr/sbin/useradd, sudo, /usr/sbin/setcap, /lib64/libnsl.so.1
 Source0: partha.tar.gz
 Source1: gyeeta-partha.service
 Source2: LICENSE
 BuildArch: x86_64
 
-%if 0%{?centos_ver} && 0%{?centos_ver} < 9
-Requires: libnsl
-%endif
-
 BuildRequires: systemd-rpm-macros
 
 # Skip Library Dependency detection
 AutoReqProv: no
+
+# Skip /usr/lib/.build-id/
+%define _build_id_links none
 
 %global debug_package %{nil}
 
@@ -60,6 +61,9 @@ if ! getent passwd gyeeta > /dev/null; then
 fi
 
 %post
+if [ ! -f /opt/gyeeta/partha/cfg/partha_main.json ]; then
+	touch /opt/gyeeta/partha/cfg/partha_main.json
+fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :
 
