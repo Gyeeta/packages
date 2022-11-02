@@ -5,6 +5,9 @@ logs
 
 cache
 
+dists
+pool
+
 *.deb
 *.rpm
 

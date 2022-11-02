@@ -1,32 +1,19 @@
 #!/bin/bash
 
+if [[ ! -d ./pool/main || ! -d ./dists/stable/main/binary-amd64 || ! `ls ./pool/main/*.deb 2> /dev/null | head -1` =~ \.deb$ ]]; then
+	echo -e "ERROR : Debian Release script being run from a dir where deploy .deb files or directory structure not available : Please run from a proper dir\n\n"
+	exit 1
+fi	
+
 set -e
 
-do_hash() {
-    HASH_NAME=$1
-    HASH_CMD=$2
-    echo "${HASH_NAME}:"
-    for f in $(find -type f); do
-        f=$(echo $f | cut -c3-) # remove ./ prefix
-        if [ "$f" = "Release" ]; then
-            continue
-        fi
-        echo " $(${HASH_CMD} ${f}  | cut -d" " -f1) $(wc -c $f)"
-    done
-}
+find pool/ -name \*.deb -exec apt-ftparchive packages {} \; > dists/stable/main/binary-amd64/Packages
 
-cat << EOF
-Origin: Example Repository
-Label: Example
-Suite: stable
-Codename: stable
-Version: 1.0
-Architectures: amd64 arm64 arm7
-Components: main
-Description: An example software repository
-Date: $(date -Ru)
-EOF
-do_hash "MD5Sum" "md5sum"
-do_hash "SHA1" "sha1sum"
-do_hash "SHA256" "sha256sum"
+gzip -c dists/stable/main/binary-amd64/Packages > dists/stable/main/binary-amd64/Packages.gz
+bzip2 -z -c dists/stable/main/binary-amd64/Packages > dists/stable/main/binary-amd64/Packages.bz2
+
+apt-ftparchive release -o APT::FTPArchive::Release::Origin=Gyeeta -o APT::FTPArchive::Release::Label=Gyeeta \
+			-o APT::FTPArchive::Release::Suite=stable -o APT::FTPArchive::Release::Codename=stable \
+			-o APT::FTPArchive::Release::Components=main -o APT::FTPArchive::Release::Architectures=amd64 \
+			-o APT::FTPArchive::Release::Description="Gyeeta Debian Package Repository" dists/stable > dists/stable/Release
 
