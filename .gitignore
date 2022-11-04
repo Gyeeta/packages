@@ -11,3 +11,5 @@ pool
 *.deb
 *.rpm
 
+.pgpkeys
+
