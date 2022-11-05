@@ -5,9 +5,9 @@ export PATH
 
 shopt -s dotglob
 
-if [ $# -lt 5 ]; then
-	echo -e "\nUsage : $0 <package name> <install files dir> <pkg dest dir> <Version> <Changelog>\n"
-	echo -e "For e.g. : ./gendeb.sh partha /tmp/installs/partha/  ../pkg/apt-repo/pool/main/ 0.1.0 \"Initial Release\"\n"
+if [ $# -lt 3 ]; then
+	echo -e "\nUsage : $0 <package name> <Install Source files base dir> <Changelog>\n"
+	echo -e "For e.g. : ./gendeb.sh partha ../../../installs/ \"Initial Release\"\n"
 	exit 1
 fi
 
@@ -16,25 +16,31 @@ if [ ! -d "./${1}" ]; then
 	exit 1
 fi	
 
-if [ ! -d "$2" ]; then
-	echo -e "\nERROR : Install Files dir specified as "$2" but is not a dir\n\n"
+if [ ! -d "$2"/$1/ ]; then
+	echo -e "\nERROR : Install Files dir specified as "$2" but "$2"/$1 is not a dir\n\n"
 	exit 1
 fi	
 
-if [ ! -d "$3" ]; then
-	echo -e "\nERROR : Package Destination dir specified as "$3" but is not a dir\n\n"
-	exit 1
-fi	
+set -x
 
 INITDIR=$PWD
 APPNAME=$1
+CHANGELOG="$3"
+
 PKGNAME=gyeeta-${APPNAME}
-DESTDIR=$3
-VERSION=$4
-CHANGELOG=$5
+DESTDIR="../pkg/apt-repo/pool/main/"
+
 
 APP_SCRIPTS_DIR=${INITDIR}/${APPNAME}
-APP_FILES_DIR=$( cd "$2" 2> /dev/null && pwd || ( echo -n ./Invalid_Files_Dir_Specified ) )
+export APP_FILES_DIR=$( cd "$2"/$1/ 2> /dev/null && pwd || ( echo -n ./Invalid_Files_Dir_Specified ) )
+
+VERSION=$( $APP_FILES_DIR/run*.sh --version 2> /dev/null | awk '{ printf "%s", $NF }' )
+
+if [ -z "$VERSION" ]; then
+	echo -e "\nERROR : Could not detect Package $APPNAME Version\n"
+	exit 1
+fi	
+
 CACHEDIR=${PWD}/cache/${PKGNAME}_${VERSION}_amd64
 
 rm -Rf $CACHEDIR 2> /dev/null
@@ -71,6 +77,8 @@ set +e
 
 cd $CACHEDIR
 
+set +x
+
 cp -a $APP_FILES_DIR/* ./opt/gyeeta/${APPNAME}/
 
 if [ $? -ne 0 ]; then
@@ -85,6 +93,8 @@ if [ $? -ne 0 ]; then
 	echo -e "\nERROR : Failed to generate md5sums file...\n\n"
 	exit 1
 fi
+
+set -x
 
 cd ${CACHEDIR}/..
 
