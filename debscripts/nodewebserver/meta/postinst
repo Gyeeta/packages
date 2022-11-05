@@ -15,6 +15,7 @@ if [ "$1" = "configure" ]; then
 
 	if [ ! -f /opt/gyeeta/nodewebserver/.env ]; then
 		touch /opt/gyeeta/nodewebserver/.env 
+		chmod 0660 /opt/gyeeta/nodewebserver/.env
 	fi
 
 	chown -h gyeeta:gyeeta /opt/gyeeta

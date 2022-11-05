@@ -62,6 +62,7 @@ fi
 %post
 if [ ! -f /opt/gyeeta/nodewebserver/.env ]; then
 	touch /opt/gyeeta/nodewebserver/.env
+	chmod 0660 /opt/gyeeta/nodewebserver/.env
 fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :

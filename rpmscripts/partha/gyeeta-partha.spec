@@ -63,6 +63,7 @@ fi
 %post
 if [ ! -f /opt/gyeeta/partha/cfg/partha_main.json ]; then
 	touch /opt/gyeeta/partha/cfg/partha_main.json
+	chmod 0660 /opt/gyeeta/partha/cfg/partha_main.json
 fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :

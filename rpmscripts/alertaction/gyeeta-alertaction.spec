@@ -61,6 +61,7 @@ fi
 %post
 if [ ! -f /opt/gyeeta/alertaction/.env ]; then
 	touch /opt/gyeeta/alertaction/.env
+	chmod 0660 /opt/gyeeta/alertaction/.env
 fi
 
 chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :

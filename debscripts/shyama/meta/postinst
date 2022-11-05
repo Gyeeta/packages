@@ -15,6 +15,7 @@ if [ "$1" = "configure" ]; then
 
 	if [ ! -f /opt/gyeeta/shyama/cfg/shyama_main.json ]; then
 		touch /opt/gyeeta/shyama/cfg/shyama_main.json
+		chmod 0660 /opt/gyeeta/shyama/cfg/shyama_main.json
 	fi
 
 	chown -h gyeeta:gyeeta /opt/gyeeta
