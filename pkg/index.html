@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="plugin-pages plugin-id-default">
+<head>
+<meta charset="UTF-8">
+<meta name="package" content="Packages">
+<title data-rh="true">Gyeeta Native Packages</title>
+
+<body>
+<h1 id="gyeeta-native-packages">Gyeeta Native Packages</h1>
+<p>Native Gyeeta packages for Debian/Ubuntu or Redhat/Fedora/OpenSuSE can be downloaded as per instructions below.</p>
+<h2 id="debian-ubuntu-installation">Debian/Ubuntu Installation</h2>
+<pre><code>curl http<span class="hljs-variable">s:</span>//pkg.gyeeta.workers.dev/pgp-key.public | sudo gpg --yes --dearmor --output /usr/share/keyrings/gyeeta-keyring.gpg
+
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"deb [arch=amd64 signed-by=/usr/share/keyrings/gyeeta-keyring.gpg] https://pkg.gyeeta.workers.dev/apt-repo stable main"</span> | sudo tee /etc/apt/sources.<span class="hljs-keyword">list</span>.d/gyeeta.<span class="hljs-keyword">list</span>
+
+sudo apt <span class="hljs-keyword">update</span>
+
+sudo apt <span class="hljs-built_in">search</span> gyeeta
+</code></pre>
+
+</body>
+</html>
