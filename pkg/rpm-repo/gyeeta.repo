@@ -1,0 +1,7 @@
+[gyeeta-repo]
+name=Gyeeta Repo
+baseurl=https://pkg.gyeeta.workers.dev/rpm-repo/pool
+enabled=1
+gpgcheck=1
+gpgkey=https://pkg.gyeeta.workers.dev/pgp-key.public
+repo_gpgcheck=0
