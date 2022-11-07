@@ -217,7 +217,7 @@ command -v systemctl > /dev/null
 if [ $? -ne 0 ]; then
 	echo -e "\nSystemD systemctl command not found. $PKGNAME will not auto-start after reboot. Please run the command on reboot to start : sudo -H -u gyeeta $INSTALLDIR/rundb.sh start \n"
 
-	sudo -H -u gyeeta $INSTALLDIR/rundb.sh start
+	sudo -H -u gyeeta $INSTALLDIR/rundb.sh start < /dev/null
 	check_cmd "Starting $PKGNAME ...\n\n"
 else
 	systemctl -q start $PKGNAME
@@ -226,7 +226,7 @@ else
 	if [ -z "$( sudo -H -u gyeeta $INSTALLDIR/rundb.sh printpids )" ]; then
 		echo -e "\nSystemD start of $PKGNAME failed. Trying manual start...\n"
 		
-		sudo -H -u gyeeta $INSTALLDIR/rundb.sh start
+		sudo -H -u gyeeta $INSTALLDIR/rundb.sh start < /dev/null
 	else
 		echo -e "\n$PKGNAME is running. You can check its status using command : systemctl status gyeeta-postgresdb \n"
 	fi	
