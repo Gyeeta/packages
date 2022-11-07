@@ -3,7 +3,8 @@
 PATH=$PATH:/usr/bin:/sbin:/usr/sbin:.
 export PATH
 
-PKGNAME=gyeeta-postgresdb
+export PKGNAME=gyeeta-postgresdb
+export INSTALLDIR=/opt/gyeeta/postgresdb
 
 check_processor()
 {
@@ -130,12 +131,6 @@ install_zypper()
 		exit 1
 	fi	
 
-	if ! command -v curl > /dev/null; then
-		echo "* Installing curl"
-		zypper -q -n install curl
-		check_cmd "curl install"
-	fi
-
 	if ! command -v sudo > /dev/null; then
 		echo "* Installing sudo"
 		zypper -q -n install sudo
@@ -168,8 +163,8 @@ if [ $(id -u) -ne 0 ]; then
 	exit 1
 fi
 
-if [ -f /opt/gyeeta/postgresdb/rundb.sh ]; then
-	echo -e "\ngyeeta-postgresdb seems to be already installed at /opt/gyeeta/postgresdb : Please uninstall the older package if a fresh install is needed...\n"
+if [ -f $INSTALLDIR/rundb.sh ]; then
+	echo -e "\n$PKGNAME seems to be already installed at $INSTALLDIR : Please uninstall the older package if a fresh install is needed...\n"
 	exit 1
 fi
 
@@ -180,7 +175,7 @@ if [ $# -lt 3 ]; then
 	exit 1
 fi	
 
-echo -e "\n* Starting installation of gyeeta-partha package...\n"
+echo -e "\n* Starting installation of $PKGNAME package...\n"
 
 if [ ! -f /etc/os-release ]; then
 	echo -e "/etc/os-release file not found. Install cannot proceed. Please contact Gyeeta at https://github.com/gyeeta/packages for help with a manual install...\n"
@@ -194,7 +189,6 @@ if [[ $DISTNAME =~ Ubuntu* || $DISTNAME =~ Debian* || $ID_LIKE =~ debian ]]; the
 	echo "Debian based OS detected..."
 	
 	PKGOS=apt
-
 	install_apt
 
 elif [[ $DISTNAME =~ Amazon* || $DISTNAME =~ CentOS* || $DISTNAME =~ "Red Hat Enterprise"* || $DISTNAME =~ "Oracle Linux"* || $DISTNAME =~ "Scientific Linux"* || $DISTNAME =~ Fedora* || $DISTNAME =~ Rocky* || $ID_LIKE =~ *rhel* ]]; then
@@ -216,27 +210,29 @@ fi
 
 echo -e "\nInstalled $PKGNAME successfully. Now starting configuration...\n"
 
-sudo -H -u gyeeta /opt/gyeeta/postgresdb/db_install.sh "$@"
+sudo -H -u gyeeta $INSTALLDIR/db_install.sh "$@"
 check_cmd "DB Creation"
 
 command -v systemctl > /dev/null
 if [ $? -ne 0 ]; then
-	echo -e "\nSystemD systemctl command not found. gyeeta-postgresdb will not auto-start after reboot. Please run the command on reboot to start : sudo -H -u gyeeta /opt/gyeeta/postgresdb/rundb.sh start \n"
+	echo -e "\nSystemD systemctl command not found. $PKGNAME will not auto-start after reboot. Please run the command on reboot to start : sudo -H -u gyeeta $INSTALLDIR/rundb.sh start \n"
 
-	sudo -H -u gyeeta /opt/gyeeta/postgresdb/rundb.sh start
-	check_cmd "Starting gyeeta-postgresdb ...\n\n"
+	sudo -H -u gyeeta $INSTALLDIR/rundb.sh start
+	check_cmd "Starting $PKGNAME ...\n\n"
 else
-	systemctl -q start gyeeta-postgresdb
-	systemctl -q enable gyeeta-postgresdb
+	systemctl -q start $PKGNAME
+	systemctl -q enable $PKGNAME
 
-	if [ -z "$( sudo -H -u gyeeta /opt/gyeeta/postgresdb/rundb.sh printpids )" ]; then
-		echo -e "\nSystemD start of gyeeta-postgresdb failed. Trying manual start...\n"
+	if [ -z "$( sudo -H -u gyeeta $INSTALLDIR/rundb.sh printpids )" ]; then
+		echo -e "\nSystemD start of $PKGNAME failed. Trying manual start...\n"
 		
-		sudo -H -u gyeeta /opt/gyeeta/postgresdb/rundb.sh start
+		sudo -H -u gyeeta $INSTALLDIR/rundb.sh start
+	else
+		echo -e "\n$PKGNAME is running. You can check its status using command : systemctl status gyeeta-postgresdb \n"
 	fi	
 fi
 
-if [ -n "$( sudo -H -u gyeeta /opt/gyeeta/postgresdb/rundb.sh printpids )" ]; then
+if [ -n "$( sudo -H -u gyeeta $INSTALLDIR/rundb.sh printpids )" ]; then
 	echo -e "\nSuccessfully installed and configured $PKGNAME\n\n"
 else
 	echo -e "\n$PKGNAME has been installed but is currently not running. Please check the logs or contact Gyeeta on Github...\n\n"
