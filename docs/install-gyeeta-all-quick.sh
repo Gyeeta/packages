@@ -291,7 +291,7 @@ check_cmd "Node Webserver Installation"
 
 rm -f /tmp/.gyeeta-nodewebserver1.env 2> /dev/null
 
-if [ -z "$( sudo -H -u gyeeta /opt/gyeeta/nodewebserver/runwebserver.sh printpids )" ]; then
+if [ -z "$( sudo /opt/gyeeta/nodewebserver/runwebserver.sh printpids )" ]; then
 	echo -e "\nERROR : Node Webserver server not currently running. Exiting the installation...\n"
 	exit 1
 fi
@@ -317,7 +317,7 @@ check_cmd "Alert Agent Installation"
 
 rm -f /tmp/.gyeeta-alertaction1.env 2> /dev/null
 
-if [ -z "$( sudo -H -u gyeeta /opt/gyeeta/alertaction/runalertaction.sh printpids )" ]; then
+if [ -z "$( sudo /opt/gyeeta/alertaction/runalertaction.sh printpids )" ]; then
 	echo -e "\nERROR : Alert Agent not currently running. Exiting the installation...\n"
 	exit 1
 fi
@@ -340,7 +340,7 @@ echo -e "Please copy this sample config file to all hosts that need to be monito
 echo "curl -o /tmp/install-gyeeta-partha.sh -s https://gyeeta.io/packages/install-gyeeta-partha.sh && sudo bash /tmp/install-gyeeta-partha.sh /tmp/partha_main_$$.json"
 echo -e "\n\nAfter installing Partha Agents, the Web UI can be accessed by pointing your Web Browser to URL : http://$HOSTNAME:10039 using user as admin and Password as $UIPASS\n\n"
 
-echo "Exiting installation...\n"
+echo -e "Exiting after successful Gyeeta Server components installation...\n"
 
 exit 0
 
