@@ -229,9 +229,13 @@ if [ $? -ne 0 ]; then
 
 	sudo -H -u gyeeta $INSTALLDIR/runwebserver.sh start < /dev/null
 	check_cmd "Starting $PKGNAME ...\n\n"
+
+	sleep 5
 else
 	systemctl -q start $PKGNAME
 	systemctl -q enable $PKGNAME
+
+	sleep 5
 
 	if [ -z "$( sudo -H -u gyeeta $INSTALLDIR/runwebserver.sh printpids )" ]; then
 		echo -e "\nSystemD start of $PKGNAME failed. Trying manual start...\n"
