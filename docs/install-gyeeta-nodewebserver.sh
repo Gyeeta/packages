@@ -237,16 +237,12 @@ else
 
 	sleep 5
 
-	if [ -z "$( sudo -H -u gyeeta $INSTALLDIR/runwebserver.sh printpids )" ]; then
-		echo -e "\nSystemD start of $PKGNAME failed. Trying manual start...\n"
-		
-		sudo -H -u gyeeta $INSTALLDIR/runwebserver.sh start < /dev/null
-	else
+	if [ -n "$( sudo $INSTALLDIR/runwebserver.sh printpids )" ]; then
 		echo -e "\n$PKGNAME is running. You can check its status using command : systemctl status $PKGNAME\n"
 	fi	
 fi
 
-if [ -n "$( sudo -H -u gyeeta $INSTALLDIR/runwebserver.sh printpids )" ]; then
+if [ -n "$( sudo $INSTALLDIR/runwebserver.sh printpids )" ]; then
 	echo -e "\nSuccessfully installed and configured $PKGNAME\n\n"
 else
 	echo -e "\n$PKGNAME has been installed but is currently not running. Please check the logs or contact Gyeeta on Github...\n\n"

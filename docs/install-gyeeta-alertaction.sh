@@ -237,11 +237,7 @@ else
 
 	sleep 5
 
-	if [ -z "$( sudo -H -u gyeeta $INSTALLDIR/runalertaction.sh printpids )" ]; then
-		echo -e "\nSystemD start of $PKGNAME failed. Trying manual start...\n"
-		
-		sudo -H -u gyeeta $INSTALLDIR/runalertaction.sh start < /dev/null
-	else
+	if [ -n "$( sudo -H -u gyeeta $INSTALLDIR/runalertaction.sh printpids )" ]; then
 		echo -e "\n$PKGNAME is running. You can check its status using command : systemctl status $PKGNAME\n"
 	fi	
 fi
