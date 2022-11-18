@@ -62,7 +62,7 @@ install_apt()
 
 	if ! command -v sudo > /dev/null; then
 		echo "* Installing sudo"
-		apt-get -qq -y install sudo < /dev/nul
+		apt-get -qq -y install sudo < /dev/null
 		check_cmd "sudo install"
 	fi
 
@@ -74,7 +74,7 @@ install_apt()
 
 	if ! command -v gpg > /dev/null; then
 		echo "* Installing gpg"
-		apt-get -qq -y install gpg < /dev/nul
+		apt-get -qq -y install gpg < /dev/null
 		check_cmd "gpg install"
 	fi
 
