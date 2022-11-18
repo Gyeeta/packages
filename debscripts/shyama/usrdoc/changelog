@@ -1,3 +1,9 @@
+gyeeta-shyama (0.1.1) stable; urgency=low
+
+  * Fix for Cloud Metadata
+
+ -- Gyeeta <gyeetainc@gmail.com> Fri, 18 Nov 2022 19:14:13 +0530
+
 gyeeta-shyama (0.1.0) stable; urgency=low
 
   * Initial Release

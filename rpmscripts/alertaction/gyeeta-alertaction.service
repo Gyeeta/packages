@@ -16,7 +16,6 @@ Environment="GY_FOREGROUND=1"
 ExecStart=/opt/gyeeta/alertaction/runalertaction.sh start
 RestartSec=10s
 Restart=always
-PrivateTmp=true
 NoNewPrivileges=yes
 ProtectHome=read-only
 ProtectSystem=full

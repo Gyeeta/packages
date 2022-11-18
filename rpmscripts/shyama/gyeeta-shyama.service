@@ -15,7 +15,6 @@ WorkingDirectory=/opt/gyeeta/shyama
 ExecStart=/opt/gyeeta/shyama/shyama
 RestartSec=20s
 Restart=always
-PrivateTmp=true
 NoNewPrivileges=yes
 ProtectHome=read-only
 ProtectSystem=full
