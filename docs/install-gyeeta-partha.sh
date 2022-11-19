@@ -62,18 +62,21 @@ install_apt()
 
 	if ! command -v sudo > /dev/null; then
 		echo "* Installing sudo"
+		apt-get -qq update < /dev/null
 		apt-get -qq -y install sudo < /dev/null
 		check_cmd "sudo install"
 	fi
 
 	if ! command -v curl > /dev/null; then
 		echo "* Installing curl"
+		apt-get -qq update < /dev/null
 		apt-get -qq -y install curl < /dev/null
 		check_cmd "curl install"
 	fi
 
 	if ! command -v gpg > /dev/null; then
 		echo "* Installing gpg"
+		apt-get -qq update < /dev/null
 		apt-get -qq -y install gpg < /dev/null
 		check_cmd "gpg install"
 	fi
@@ -88,7 +91,7 @@ install_apt()
 
 	KERNHDR="linux-headers-$( uname -r )"
 	echo "* Installing kernel headers"
-	apt-get -qq -y install $KERNHDR < /dev/null || kernel_warning
+	apt-get -y install $KERNHDR < /dev/null || kernel_warning
 
 	apt-get -qq -y install $PKGNAME
 	check_cmd "$PKGNAME package install"
@@ -108,12 +111,14 @@ install_rpm()
 
 	if ! command -v sudo > /dev/null; then
 		echo "* Installing sudo"
+		$YUMCMD -y update
 		$YUMCMD -q -y install sudo
 		check_cmd "sudo install"
 	fi
 
 	if ! command -v curl > /dev/null; then
 		echo "* Installing curl"
+		$YUMCMD -y update
 		$YUMCMD -q -y install curl
 		check_cmd "curl install"
 	fi
@@ -128,7 +133,7 @@ install_rpm()
 	
 	KERNHDR="kernel-devel-$( uname -r )"
 	echo "* Installing kernel headers"
-	$YUMCMD -q -y install $KERNHDR || kernel_warning
+	$YUMCMD -y install $KERNHDR || kernel_warning
 
 	$YUMCMD install -y $PKGNAME
 	check_cmd "$PKGNAME package install"

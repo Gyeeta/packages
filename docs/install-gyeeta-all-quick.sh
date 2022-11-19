@@ -50,6 +50,8 @@ check_cmd()
 
 check_apt()
 {
+	export DEBIAN_FRONTEND=noninteractive
+
 	if ! command -v apt-get > /dev/null; then
 		echo -e "Debian/Ubuntu Based OS detected but apt-get command not found. Exiting installation...\n"
 		exit 1
@@ -57,12 +59,14 @@ check_apt()
 
 	if ! command -v sudo > /dev/null; then
 		echo "* Installing sudo"
+		apt-get -qq update < /dev/null
 		apt-get -qq -y install sudo < /dev/null
 		check_cmd "sudo install"
 	fi
 
 	if ! command -v curl > /dev/null; then
 		echo "* Installing curl"
+		apt-get -qq update < /dev/null
 		apt-get -qq -y install curl < /dev/null
 		check_cmd "curl install"
 	fi
@@ -81,12 +85,14 @@ check_rpm()
 
 	if ! command -v sudo > /dev/null; then
 		echo "* Installing sudo"
+		$YUMCMD -y update
 		$YUMCMD -q -y install sudo
 		check_cmd "sudo install"
 	fi
 
 	if ! command -v curl > /dev/null; then
 		echo "* Installing curl"
+		$YUMCMD -y update
 		$YUMCMD -q -y install curl
 		check_cmd "curl install"
 	fi
