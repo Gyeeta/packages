@@ -164,7 +164,7 @@ install_zypper()
 	curl -s -o /etc/zypp/repos.d/gyeeta.repo https://pkg.gyeeta.workers.dev/rpm-repo/gyeeta.repo
 	check_cmd "Gyeeta Repo Add"
 
-	KERNHDR=`kernel-default-devel-$(uname -r | awk -F- '{print $1}')`
+	KERNHDR="kernel-default-devel-$(uname -r | awk -F- '{print $1}')"
 	echo "* Installing kernel headers"
 	zypper -q -n install $KERNHDR || kernel_warning
 
