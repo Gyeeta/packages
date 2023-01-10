@@ -92,6 +92,9 @@ fi
 /opt/gyeeta/nodewebserver/
 
 %changelog
+* Tue Jan 10 2023 Gyeeta <gyeetainc@gmail.com>
+- Added BPF CO-RE Support and additional Host metrics
+
 * Wed Oct 26 2022 Gyeeta <gyeetainc@gmail.com>
 - Initial Release
 

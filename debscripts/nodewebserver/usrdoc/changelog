@@ -1,3 +1,9 @@
+gyeeta-nodewebserver (0.2.0) stable; urgency=low
+
+  * Added BPF CO-RE Support and additional Host metrics
+
+ -- Gyeeta <gyeetainc@gmail.com> Tue, 10 Jan 2023 15:51:32 +0530
+
 gyeeta-nodewebserver (0.1.0) stable; urgency=low
 
   * Initial Release

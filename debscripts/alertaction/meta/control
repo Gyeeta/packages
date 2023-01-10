@@ -1,5 +1,5 @@
 Package: gyeeta-alertaction
-Version: 0.1.0
+Version: 0.2.0
 Architecture: amd64
 Maintainer: Gyeeta (https://github.com/gyeeta/alertaction)
 Depends: adduser, libc6 (>= 2.27), zlib1g (>= 1:1.2.11), liblzma5 (>= 5.2.2)
