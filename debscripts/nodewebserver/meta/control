@@ -1,5 +1,5 @@
 Package: gyeeta-nodewebserver
-Version: 0.3.1
+Version: 0.3.2
 Architecture: amd64
 Maintainer: Gyeeta (https://github.com/gyeeta/nodewebserver)
 Depends: adduser, libc6 (>= 2.27), zlib1g (>= 1:1.2.11), liblzma5 (>= 5.2.2)
