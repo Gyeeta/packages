@@ -70,13 +70,13 @@ chown -h gyeeta:gyeeta /opt/gyeeta 2> /dev/null || :
 
 chown -hR gyeeta:gyeeta /opt/gyeeta/partha
 
-/usr/sbin/setcap cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_ipc_lock,cap_kill,cap_mac_admin,cap_mknod,cap_sys_chroot,cap_sys_resource,cap_setpcap,cap_sys_ptrace,cap_sys_admin,cap_net_admin,cap_net_raw,cap_sys_module+ep /opt/gyeeta/partha/partha-bpf
+/usr/sbin/setcap cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_ipc_lock,cap_kill,cap_mac_admin,cap_mknod,cap_sys_chroot,cap_sys_resource,cap_setpcap,cap_sys_ptrace,cap_sys_admin,cap_net_admin,cap_net_raw,cap_sys_module,cap_setuid+ep /opt/gyeeta/partha/partha-bpf
 
 if [ $? -ne 0 ]; then
 	echo -e "\nERROR : Failed to set Capabilities to partha-bpf binary. partha-bpf will not start unless run as root...\n"
 fi	
 
-/usr/sbin/setcap cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_ipc_lock,cap_kill,cap_mac_admin,cap_mknod,cap_sys_chroot,cap_sys_resource,cap_setpcap,cap_sys_ptrace,cap_sys_admin,cap_net_admin,cap_net_raw,cap_sys_module+ep /opt/gyeeta/partha/partha-bcc
+/usr/sbin/setcap cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_ipc_lock,cap_kill,cap_mac_admin,cap_mknod,cap_sys_chroot,cap_sys_resource,cap_setpcap,cap_sys_ptrace,cap_sys_admin,cap_net_admin,cap_net_raw,cap_sys_module,cap_setuid+ep /opt/gyeeta/partha/partha-bcc
 
 if [ $? -ne 0 ]; then
 	echo -e "\nERROR : Failed to set Capabilities to partha-bcc binary. partha-bcc will not start unless run as root...\n"
