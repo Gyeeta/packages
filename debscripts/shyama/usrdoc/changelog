@@ -1,3 +1,9 @@
+gyeeta-shyama (0.4.0) stable; urgency=low
+
+  * Handling short lived connections and Delay settings
+
+ -- Gyeeta <gyeetainc@gmail.com> Thu, 27 Apr 2023 17:10:24 +0530
+
 gyeeta-shyama (0.3.0) stable; urgency=low
 
   * Changes for Service Groups
