@@ -12,7 +12,6 @@ pool
 *.rpm
 
 .pgpkeys
-rpmdocker.sh
 gyeeta.png
 gyeeta480p.gif
 
