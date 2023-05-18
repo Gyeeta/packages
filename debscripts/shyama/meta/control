@@ -1,5 +1,5 @@
 Package: gyeeta-shyama
-Version: 0.4.0
+Version: 0.4.1
 Architecture: amd64
 Maintainer: Gyeeta (https://github.com/gyeeta/gyeeta)
 Depends: adduser, libc6 (>= 2.27), zlib1g (>= 1:1.2.11), liblzma5 (>= 5.2.2)
